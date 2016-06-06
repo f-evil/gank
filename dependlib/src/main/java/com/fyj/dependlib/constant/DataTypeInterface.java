@@ -1,6 +1,7 @@
 package com.fyj.dependlib.constant;
 
 /**
+ * 数据类型
  * Created by Fyj on 2016/6/3.
  */
 public class DataTypeInterface {

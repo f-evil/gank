@@ -17,4 +17,11 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">#9575cd</item>
+        <item name="colorPrimaryDark">#7e57c2</item>
+    </style>
+
 </resources>

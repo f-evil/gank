@@ -1,4 +1,4 @@
-package com.fyj.gank.baseview;
+package com.fyj.gank.base;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,11 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fyj.dependlib.utils.XLog;
+
+import butterknife.ButterKnife;
+
 /**
- *
+ * fragment 懒加载
  * Created by Fyj on 2016/6/3.
  */
 public abstract class BaseLazyFragment extends Fragment {
+
+    public String TAG = this.getClass().getSimpleName();
 
     /**
      * 是否可见状态
@@ -24,15 +30,23 @@ public abstract class BaseLazyFragment extends Fragment {
      * 是否第一次加载
      */
     private boolean isFirstLoad = true;
+    private View view;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         isFirstLoad = true;
-        View view = initViews(inflater, container, savedInstanceState);
+        view = initViews(inflater, container, savedInstanceState);
+        ButterKnife.bind(this,view);
         isPrepared = true;
         load();
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        ButterKnife.unbind(view);
+        super.onDestroy();
     }
 
     /**
@@ -89,6 +103,7 @@ public abstract class BaseLazyFragment extends Fragment {
         isFirstLoad = false;
         initData();
         lazyLoad();
+        XLog.e(TAG, "on lazy loading ...");
     }
 
     protected abstract void lazyLoad();

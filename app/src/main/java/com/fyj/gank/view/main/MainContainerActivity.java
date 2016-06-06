@@ -1,24 +1,26 @@
-package com.fyj.gank.view.homeview;
+package com.fyj.gank.view.main;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.fyj.gank.R;
 import com.fyj.gank.adapter.MainContainerAdapter;
-import com.fyj.gank.baseview.BaseFragmentActivity;
+import com.fyj.gank.base.BaseActivity;
 import com.fyj.gank.model.TabEntity;
 
 import java.util.ArrayList;
 
-public class MainContainerActivity extends BaseFragmentActivity {
+import butterknife.Bind;
+
+public class MainContainerActivity extends BaseActivity {
 
     private ArrayList<CustomTabEntity> mTabEntities;
     private ArrayList<Fragment> mFragments;
@@ -30,13 +32,18 @@ public class MainContainerActivity extends BaseFragmentActivity {
     private int[] mIconSelectIds = {
             R.mipmap.icon_home_down, R.mipmap.icon_type_down,
             R.mipmap.icon_random_down};
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.viewpager_container)
+    ViewPager mViewpagerContainer;
+    @Bind(R.id.ctl_buttom)
+    CommonTabLayout mCtlButtom;
 
-    private ViewPager mViewpagerContainer;
-    private CommonTabLayout mCtlButtom;
+    private ActionBar supportActionBar;
 
 
-    public static void MainContainerActivitySkip(Context mContext){
-        mContext.startActivity(new Intent(mContext,MainContainerActivity.class));
+    public static void MainContainerActivitySkip(Context mContext) {
+        mContext.startActivity(new Intent(mContext, MainContainerActivity.class));
     }
 
     @Override
@@ -45,25 +52,32 @@ public class MainContainerActivity extends BaseFragmentActivity {
     }
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main_container;
+    }
+
+    @Override
     protected void initDate() {
         super.initDate();
         mFragments = new ArrayList<>();
-        mTabEntities=new ArrayList<>();
+        mTabEntities = new ArrayList<>();
 
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
-            mFragments.add(new DemoFragmente());
         }
     }
 
     @Override
     protected void initView() {
-        setContentView(R.layout.activity_main_container);
 
-        mViewpagerContainer = (ViewPager) findViewById(R.id.viewpager_container);
-        mViewpagerContainer.setOffscreenPageLimit(1);
-        mCtlButtom = (CommonTabLayout) findViewById(R.id.ctl_buttom);
+        setSupportActionBar(toolbar);
+        supportActionBar = getSupportActionBar();
+        if (supportActionBar!=null){
+            supportActionBar.setDisplayHomeAsUpEnabled(false);
+        }
+        mViewpagerContainer.setOffscreenPageLimit(4);
         mCtlButtom.setTabData(mTabEntities);
+        setTitle("首页");
 
         initViewpager();
 
@@ -71,7 +85,7 @@ public class MainContainerActivity extends BaseFragmentActivity {
 
     private void initViewpager() {
 
-        mViewpagerContainer.setAdapter(new MainContainerAdapter(getSupportFragmentManager(),mFragments,mTitles));
+        mViewpagerContainer.setAdapter(new MainContainerAdapter(getSupportFragmentManager(), mFragments, mTitles));
 
         mCtlButtom.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
@@ -93,7 +107,6 @@ public class MainContainerActivity extends BaseFragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-                mViewpagerContainer.setOffscreenPageLimit(4);
                 mCtlButtom.setCurrentTab(position);
             }
 
@@ -120,6 +133,12 @@ public class MainContainerActivity extends BaseFragmentActivity {
     @Override
     protected void bindEvent() {
 
+    }
+
+    public void setTitle(String title) {
+        if (supportActionBar!=null){
+            supportActionBar.setTitle(title);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.fyj.dependlib.constant;
 /**
+ * 请求地址集合
  * Created by Fyj on 2016/6/3.
  */
 public class HttpInterface {

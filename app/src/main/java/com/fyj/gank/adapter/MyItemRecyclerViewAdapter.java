@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.fyj.gank.R;
 import com.fyj.dependlib.mock.DummyContent;
+import com.fyj.dependlib.mock.DummyContent.DummyItem;
+import com.fyj.dependlib.widget.LoadMoreRecyclerView;
+import com.fyj.gank.R;
 
 import java.util.List;
 
@@ -16,10 +18,10 @@ import java.util.List;
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<DummyContent.DummyItem> mValues;
+    private List<DummyItem> mValues;
     private boolean mIsStagger;
 
-    public MyItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
+    public MyItemRecyclerViewAdapter(List<DummyItem> items) {
         mValues = items;
     }
 
@@ -27,29 +29,33 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         this.mIsStagger = mIsStagger;
     }
 
-    public void setData(List<DummyContent.DummyItem> datas) {
+    public void setData(List<DummyItem> datas) {
         mValues = datas;
     }
 
-    public void addDatas(List<DummyContent.DummyItem> datas) {
+    public void addDatas(List<DummyItem> datas) {
         mValues.addAll(datas);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.fragment_item, parent, false);
             return new ViewHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (mIsStagger) {
+            StaggerViewHolder staggerViewHolder = (StaggerViewHolder) holder;
+            staggerViewHolder.iconView.setVisibility(View.VISIBLE);
+            staggerViewHolder.mContentView.setText(mValues.get(position).details);
+        } else {
             ViewHolder mHolder = (ViewHolder) holder;
             mHolder.mItem = mValues.get(position);
             mHolder.mContentView.setText(mValues.get(position).content);
             mHolder.mIdView.setText(mValues.get(position).id);
+        }
     }
 
     @Override
@@ -74,7 +80,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyContent.DummyItem mItem;
+        public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);

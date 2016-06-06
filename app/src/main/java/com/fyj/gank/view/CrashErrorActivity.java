@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Process;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 
 import com.fyj.gank.R;
-import com.fyj.gank.baseview.BaseActivity;
+import com.fyj.gank.base.BaseActivity;
 import com.umeng.analytics.MobclickAgent;
 
 public class CrashErrorActivity extends BaseActivity {
@@ -19,9 +18,12 @@ public class CrashErrorActivity extends BaseActivity {
 	}
 
 	@Override
-	protected void initView() {
-		setContentView(R.layout.customactivityoncrash_default_error_activity);
+	protected int getLayoutId() {
+		return R.layout.customactivityoncrash_default_error_activity;
+	}
 
+	@Override
+	protected void initView() {
 		Button restartButton = (Button) findViewById(R.id.customactivityoncrash_error_activity_restart_button);
 
 		restartButton.setText("点击唤醒");

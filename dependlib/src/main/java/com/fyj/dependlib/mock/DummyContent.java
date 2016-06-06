@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 假数据
  * Created by Fyj on 2016/6/3.
  */
 public class DummyContent {
+    /**
+     * 一次返回几个
+     */
     private static final int COUNT = 25;
+    /**
+     * 共有几页
+     */
     private static final int TOTALPAGE = 4;
 
     public static List<DummyItem> generyData(int page) {

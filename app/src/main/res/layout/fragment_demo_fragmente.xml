@@ -1,23 +1,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.fyj.gank.view.homeview.DemoFragmente">
 
-    <ProgressBar
-        android:id="@+id/pb_p"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_p"
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.fyj.gank.widget.LoadmoreRecyleView
-            android:id="@+id/rcv_content"
+        <com.fyj.dependlib.widget.LoadMoreRecyclerView
+            android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/fragment_item" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

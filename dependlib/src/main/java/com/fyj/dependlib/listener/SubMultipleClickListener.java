@@ -8,8 +8,14 @@ import android.view.View;
  */
 public abstract class SubMultipleClickListener implements View.OnClickListener {
 
+    /**
+     * 延迟点击
+     */
     private final static float DELAY_TIME=1800;
 
+    /**
+     * 最后一次有效点击时间
+     */
     private long lastClickTime;
 
     public SubMultipleClickListener() {
