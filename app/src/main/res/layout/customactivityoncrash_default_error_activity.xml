@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/customactivityoncrash_error_activity_restart_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="点击唤醒"
+        android:textColor="#b92331"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
