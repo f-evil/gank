@@ -56,4 +56,9 @@ public class CrashErrorActivity extends BaseActivity {
 
 	}
 
+	@Override
+	protected void initPresenter() {
+
+	}
+
 }

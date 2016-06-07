@@ -1,12 +1,15 @@
 package com.fyj.gank.base;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.flyco.systembar.SystemBarHelper;
 import com.fyj.dependlib.utils.TUtil;
 import com.fyj.dependlib.utils.XLog;
+import com.fyj.gank.R;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
@@ -29,6 +32,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this, 1);
         initDate();
+        initPresenter();
         initView();
         getDate();
         initBroadCast();
@@ -66,6 +70,8 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
 
     protected abstract void bindEvent();
 
+    protected abstract void initPresenter();
+
     protected void initDate() {
 
     }
@@ -78,6 +84,14 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
 
     protected void titleColor() {
 
+        int color;
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            color= getResources().getColor(R.color.stausbar_color, getTheme());
+        }else {
+            color= getResources().getColor(R.color.stausbar_color);
+        }
+        SystemBarHelper.tintStatusBar(this,color );
     }
 
     @Override

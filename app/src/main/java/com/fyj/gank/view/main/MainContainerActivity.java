@@ -14,24 +14,13 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.fyj.gank.R;
 import com.fyj.gank.adapter.MainContainerAdapter;
 import com.fyj.gank.base.BaseActivity;
-import com.fyj.gank.model.TabEntity;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 
-public class MainContainerActivity extends BaseActivity {
+public class MainContainerActivity extends BaseActivity<MainPresenter, MainModel> implements MainContract.View {
 
-    private ArrayList<CustomTabEntity> mTabEntities;
-    private ArrayList<Fragment> mFragments;
-
-    private String[] mTitles = {"最新", "分类", "随机"};
-    private int[] mIconUnselectIds = {
-            R.mipmap.icon_home_up, R.mipmap.icon_type_up,
-            R.mipmap.icon_random_up};
-    private int[] mIconSelectIds = {
-            R.mipmap.icon_home_down, R.mipmap.icon_type_down,
-            R.mipmap.icon_random_down};
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.viewpager_container)
@@ -59,12 +48,6 @@ public class MainContainerActivity extends BaseActivity {
     @Override
     protected void initDate() {
         super.initDate();
-        mFragments = new ArrayList<>();
-        mTabEntities = new ArrayList<>();
-
-        for (int i = 0; i < mTitles.length; i++) {
-            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
-        }
     }
 
     @Override
@@ -72,11 +55,11 @@ public class MainContainerActivity extends BaseActivity {
 
         setSupportActionBar(toolbar);
         supportActionBar = getSupportActionBar();
-        if (supportActionBar!=null){
+        if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(false);
         }
         mViewpagerContainer.setOffscreenPageLimit(4);
-        mCtlButtom.setTabData(mTabEntities);
+
         setTitle("首页");
 
         initViewpager();
@@ -85,12 +68,11 @@ public class MainContainerActivity extends BaseActivity {
 
     private void initViewpager() {
 
-        mViewpagerContainer.setAdapter(new MainContainerAdapter(getSupportFragmentManager(), mFragments, mTitles));
-
         mCtlButtom.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
                 mViewpagerContainer.setCurrentItem(position);
+                setTitle(mModel.getTitles()[position]);
             }
 
             @Override
@@ -108,6 +90,7 @@ public class MainContainerActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 mCtlButtom.setCurrentTab(position);
+                setTitle(mModel.getTitles()[position]);
             }
 
             @Override
@@ -135,10 +118,20 @@ public class MainContainerActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void initPresenter() {
+        mPresenter.setVM(this, mModel);
+    }
+
     public void setTitle(String title) {
-        if (supportActionBar!=null){
+        if (supportActionBar != null) {
             supportActionBar.setTitle(title);
         }
     }
 
+    @Override
+    public void updataListView(ArrayList<CustomTabEntity> tabs, ArrayList<Fragment> fragments, String[] titles) {
+        mCtlButtom.setTabData(tabs);
+        mViewpagerContainer.setAdapter(new MainContainerAdapter(getSupportFragmentManager(), fragments, titles));
+    }
 }

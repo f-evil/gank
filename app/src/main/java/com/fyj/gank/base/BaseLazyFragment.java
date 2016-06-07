@@ -1,11 +1,13 @@
 package com.fyj.gank.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fyj.dependlib.utils.TUtil;
 import com.fyj.dependlib.utils.XLog;
 
 import butterknife.ButterKnife;
@@ -14,9 +16,13 @@ import butterknife.ButterKnife;
  * fragment 懒加载
  * Created by Fyj on 2016/6/3.
  */
-public abstract class BaseLazyFragment extends Fragment {
+public abstract class BaseLazyFragment<T extends BasePresenter, E extends BaseModel> extends Fragment {
 
     public String TAG = this.getClass().getSimpleName();
+
+    public T mPresenter;
+    public E mModel;
+    public Context mContext;
 
     /**
      * 是否可见状态
@@ -35,6 +41,9 @@ public abstract class BaseLazyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mContext = getActivity();
+        mPresenter = TUtil.getT(this, 0);
+        mModel = TUtil.getT(this, 1);
         isFirstLoad = true;
         view = initViews(inflater, container, savedInstanceState);
         ButterKnife.bind(this,view);
@@ -103,6 +112,7 @@ public abstract class BaseLazyFragment extends Fragment {
         isFirstLoad = false;
         initData();
         lazyLoad();
+        initPresenter();
         XLog.e(TAG, "on lazy loading ...");
     }
 
@@ -111,5 +121,7 @@ public abstract class BaseLazyFragment extends Fragment {
     protected abstract View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     protected abstract void initData();
+
+    protected abstract void initPresenter();
 
 }

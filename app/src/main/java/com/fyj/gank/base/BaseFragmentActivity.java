@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Window;
 
+import com.flyco.systembar.SystemBarHelper;
 import com.fyj.dependlib.utils.XLog;
+import com.fyj.gank.R;
 
 public abstract class BaseFragmentActivity extends FragmentActivity {
 
@@ -57,6 +59,14 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
     }
 
     protected void titleColor() {
+        int color;
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            color= getResources().getColor(R.color.stausbar_color, getTheme());
+        }else {
+            color= getResources().getColor(R.color.stausbar_color);
+        }
+        SystemBarHelper.tintStatusBar(this,color );
     }
 
     @Override

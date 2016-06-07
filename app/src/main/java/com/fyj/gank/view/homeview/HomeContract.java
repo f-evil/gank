@@ -5,20 +5,20 @@ import com.fyj.gank.base.BasePresenter;
 import com.fyj.gank.base.BaseView;
 
 /**
- * Created by Fyj on 2016/6/6.
+ * Created by Fyj on 2016/6/7.
  */
-public interface HomeContract {
+public class HomeContract {
 
     interface Model extends BaseModel {
 
     }
 
-    interface View extends BaseView{
-        void updataListView(String jsonString);
+    interface View extends BaseView {
+        void updateView();
+        void dataError(String msg);
     }
 
-    abstract class Presenter extends BasePresenter{
+    abstract class Presenter extends BasePresenter<Model, View> {
 
     }
-
 }
