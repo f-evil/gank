@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.fyj.dependlib.utils.ToastUtil;
 import com.fyj.gank.utils.CrashHandler;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
@@ -24,6 +25,8 @@ public class GankApp extends Application {
         super.onCreate();
 
         gankApp = new SoftReference<>(getApplicationContext());
+
+        ToastUtil.setContext(gankApp.get());
 
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(this, this.getPackageName());

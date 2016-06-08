@@ -104,6 +104,31 @@
     @butterknife.* <methods>;
 }
 
+#rxjava
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+ long producerIndex;
+ long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+
+#flyco混淆配置
+-dontwarn com.flyco.tablayout.**
+-keep public class com.flyco.tablayout.**{*;}
+
+#flyco混淆配置
+-dontwarn com.flyco.systembar.**
+-keep public class com.flyco.systembar.**{*;}
+
+#dependlib混淆配置
+-dontwarn com.fyj.dependlib.**
+-keep public class com.fyj.dependlib.**{*;}
+
 #保持签名
 -keepattributes Signture
 

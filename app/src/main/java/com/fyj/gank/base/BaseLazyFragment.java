@@ -111,16 +111,16 @@ public abstract class BaseLazyFragment<T extends BasePresenter, E extends BaseMo
         }
         isFirstLoad = false;
         initData();
-        lazyLoad();
+        lazyLoad(view);
         initPresenter();
         XLog.e(TAG, "on lazy loading ...");
     }
 
-    protected abstract void lazyLoad();
-
     protected abstract View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     protected abstract void initData();
+
+    protected abstract void lazyLoad(View view);
 
     protected abstract void initPresenter();
 

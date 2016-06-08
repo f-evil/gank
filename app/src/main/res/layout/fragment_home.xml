@@ -4,10 +4,22 @@
     android:layout_height="match_parent"
     tools:context="com.fyj.gank.view.homeview.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.fyj.dependlib.widget.LoadMoreRecyclerView
+            android:id="@+id/lrv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <TextView
+        android:id="@+id/tv_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="@string/empty_list"/>
 
 </FrameLayout>

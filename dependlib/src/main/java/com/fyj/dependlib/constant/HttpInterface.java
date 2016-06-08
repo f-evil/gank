@@ -5,19 +5,21 @@ package com.fyj.dependlib.constant;
  */
 public class HttpInterface {
 
+    public static final String BASE_NIUPAI_URL="http://gank.io/api/";
+
     public interface History {
 
         /**
          * 获取某几日干货网站数据:
          * http://gank.io/api/history/content/2/1
          */
-        String CONTENT_SOMEDAYS = "http://gank.io/api/history/content/";
+        String CONTENT_SOMEDAYS = BASE_NIUPAI_URL+"history/content/";
 
         /**
          * 获取特定日期网站数据::
          * http://gank.io/api/history/content/day/2016/05/11
          */
-        String CONTENT_SOMEDAY = "http://gank.io/api/history/content/day/";
+        String CONTENT_SOMEDAY = BASE_NIUPAI_URL+"/history/content/day/";
     }
 
     public interface Day {
@@ -26,13 +28,13 @@ public class HttpInterface {
          * 获取发过干货日期接口:
          * http://gank.io/api/day/history 方式 GET
          */
-        String CHOOSE_DAY_LIST = "http://gank.io/api/day/history";
+        String CHOOSE_DAY_LIST = BASE_NIUPAI_URL+"day/history";
 
         /**
          * 每日数据:
          * http://gank.io/api/day/2015/08/07 方式 GET
          */
-        String DAY_CONTANT = "http://gank.io/api/day/";
+        String DAY_CONTANT = BASE_NIUPAI_URL+"day/";
 
     }
 
@@ -60,7 +62,7 @@ public class HttpInterface {
          * 请求个数： 数字，大于0
          * 第几页：   数字，大于0
          */
-        String ADD_TO_GANK = "http://gank.io/api/data/";
+        String ADD_TO_GANK = BASE_NIUPAI_URL+"data/";
 
     }
 
@@ -72,7 +74,7 @@ public class HttpInterface {
          * 数据类型： 福利 | Android | iOS | 休息视频 | 拓展资源 | 前端
          * 个数：    数字，大于0
          */
-        String RANDOM_DATA = "http://gank.io/api/random/data/";
+        String RANDOM_DATA = BASE_NIUPAI_URL+"random/data/";
 
     }
 

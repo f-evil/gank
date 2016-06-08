@@ -5,16 +5,17 @@ import com.fyj.gank.base.BasePresenter;
 import com.fyj.gank.base.BaseView;
 
 /**
+ *
  * Created by Fyj on 2016/6/7.
  */
-public class HomeContract {
+public interface HomeContract {
 
     interface Model extends BaseModel {
-
+        void getDataFromWeb();
     }
 
     interface View extends BaseView {
-        void updateView();
+        void updateView(String json);
         void dataError(String msg);
     }
 
