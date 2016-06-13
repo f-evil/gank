@@ -3,6 +3,9 @@ package com.fyj.gank.view.homeview;
 import com.fyj.gank.base.BaseModel;
 import com.fyj.gank.base.BasePresenter;
 import com.fyj.gank.base.BaseView;
+import com.fyj.gank.bean.HistoryBean;
+
+import rx.Observable;
 
 /**
  *
@@ -11,11 +14,11 @@ import com.fyj.gank.base.BaseView;
 public interface HomeContract {
 
     interface Model extends BaseModel {
-        void getDataFromWeb();
+        Observable<HistoryBean> getDataFromWeb();
     }
 
     interface View extends BaseView {
-        void updateView(String json);
+        void updateView(Observable<HistoryBean> data);
         void dataError(String msg);
     }
 
